@@ -18,14 +18,12 @@ public class ApplicationSession {
 
 	private static /*Qu'est ce qu'un singleton ? C'est un Design Pattern */ ApplicationSession session = null;
 	private ApplicationSession() {
-		/* Definir US comme locale par défaut */
-		Locale.setDefault(locale.US);
-		
+		/* Definir US comme locale par défaut */		
 		locale = Locale.getDefault();
-		resourceBundle = resourceBundle.getBundle("edu.iut.resources.strings.res",locale);/* à compléter */
-		sessionGuiLogger = sessionGuiLogger.getLogger(Logger.GLOBAL_LOGGER_NAME);/* Initialiser le logger */
+		resourceBundle = ResourceBundle.getBundle("edu.iut.resources.strings.res",locale);/* à compléter */
+		sessionGuiLogger = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);/* Initialiser le logger */
 		sessionGuiLogger.setLevel(Level.ALL);/* Touls les message doivent être affiché */
-		sessionExceptionLogger = sessionExceptionLogger.getLogger(Logger.GLOBAL_LOGGER_NAME);/* Logger pour exception */
+		sessionExceptionLogger = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);/* Logger pour exception */
 		sessionExceptionLogger.setLevel(Level.ALL);/* Touls les message doivent être affiché */
 	}
 	
@@ -47,7 +45,7 @@ public class ApplicationSession {
 	public void setLocale(Locale locale){
 		this.locale = locale;
 		Locale.setDefault(this.locale);
-		resourceBundle=resourceBundle.getBundle("etu.iut.resources.strings");/* récupérer les resources */
+		resourceBundle=ResourceBundle.getBundle("etu.iut.resources.strings.res");/* récupérer les resources */
 	}
 	
 	public String getString(String key) {
