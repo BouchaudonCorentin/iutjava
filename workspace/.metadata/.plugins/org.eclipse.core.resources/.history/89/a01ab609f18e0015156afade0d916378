@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<project default="javadoc">
-    <target name="javadoc">
-        <javadoc access="private" author="true" classpath="C:\Users\bouchaudon\.p2\pool\plugins\org.hamcrest.core_1.3.0.v201303031735.jar;C:\Users\bouchaudon\.p2\pool\plugins\org.junit_4.12.0.v201504281640\junit.jar" destdir="" nodeprecated="false" nodeprecatedlist="false" noindex="false" nonavbar="false" notree="false" packagenames="edu.iut.tests,edu.iut.app,edu.iut.exceptions,edu.iut.gui.listeners,edu.iut.tools,edu.iut.gui.widget.agenda,edu.iut.gui.frames" source="1.8" sourcepath="src" splitindex="true" use="true" version="true"/>
-    </target>
-</project>
