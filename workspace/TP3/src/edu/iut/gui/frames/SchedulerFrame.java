@@ -12,7 +12,10 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JSpinner;
 import javax.swing.JSplitPane;
+import javax.swing.SpinnerModel;
+import javax.swing.SpinnerNumberModel;
 
 import edu.iut.gui.widget.agenda.AgendaPanelFactory;
 import edu.iut.gui.widget.agenda.ControlAgendaViewPanel;
@@ -46,19 +49,59 @@ public class SchedulerFrame extends JFrame {
 		this.setContentPane(splitPane);
 		
 		JMenuBar menuBar = new JMenuBar();
-		JMenu menu;		
-		JMenuItem menuItem;
+		JMenu file;		
+		JMenuItem load;
+		JMenuItem save;
+		JMenuItem quit;
 		
 		/* File Menu */
-		/** EX4 : MENU : UTILISER L'AIDE FOURNIE DANS LE TP**/
+		/** EX4 : MENU : UTILISER L'AIDE FOURNIE DANS LE TP**/		
+		file = new JMenu("File");
+		menuBar.add(file);
+		load =new JMenuItem("Load");
+		file.add(load);
+		save =new JMenuItem("Save");
+		file.add(save);
+		quit =new JMenuItem("Quit");
+		file.add(quit);
 		
+		JMenu edit;		
+		JMenu view;
+		JMenuItem week;
+		JMenuItem month;
+		JMenuItem day;
+	
+		edit = new JMenu("Edit");
+		menuBar.add(edit);
+		view =new JMenu("View");
+		edit.add(view);
+		month =new JMenuItem("Month");
+		view.add(month);
+		week =new JMenuItem("Week");
+		view.add(week);
+		day =new JMenuItem("Day");
+		view.add(day);
 		
-		menu = new JMenu("File");
+		JMenu help;		
+		JMenuItem display;
+		JMenuItem about;
+	
+		help = new JMenu("Help");
+		menuBar.add(help);
+		display =new JMenuItem("Display");
+		help.add(display);
+		about =new JMenuItem("About");
+		help.add(about);
+		JSpinner spinner;
+		SpinnerModel model=new SpinnerNumberModel(2015,2000,2020,1);
 		
+		spinner =new JSpinner(model);
 		
+		contentPane.add(spinner);
 		this.setJMenuBar(menuBar);
 		this.pack();
 		layerLayout.next(contentPane);
+		
 	}
 	
 	public SchedulerFrame() {
@@ -76,6 +119,7 @@ public class SchedulerFrame extends JFrame {
 		agendaPanelFactory = null;
 		setupUI();
 
+		
 	}
 	public SchedulerFrame(String title) {
 		super(title);
