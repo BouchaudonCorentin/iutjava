@@ -10,6 +10,12 @@ public class ExamEvent {
 		this.jury= new ArrayList<Person>();
 		
 	}
+	public ExamEvent(Date date) {
+		this.examDate=date;
+		this.student= new Person();
+		this.jury= new ArrayList<Person>();
+		
+	}
 	
 	public ExamEvent(Date date, Person person, ArrayList<Person> jury,
 					Classroom classRoom, ArrayList<Document> document) {

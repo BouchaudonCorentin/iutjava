@@ -8,6 +8,7 @@ import java.awt.event.WindowEvent;
 import java.util.Calendar;
 import java.util.Date;
 
+import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JMenu;
@@ -22,7 +23,9 @@ import javax.swing.SpinnerNumberModel;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
+import edu.iut.app.Agenda;
 import edu.iut.app.ApplicationSession;
+import edu.iut.app.ExamEvent;
 import edu.iut.gui.widget.agenda.AgendaPanelFactory;
 import edu.iut.gui.widget.agenda.ControlAgendaViewPanel;
 import edu.iut.gui.widget.agenda.AgendaPanelFactory.ActiveView;
@@ -35,10 +38,11 @@ public class SchedulerFrame extends JFrame {
 	JPanel dayView;
 	JPanel weekView;
 	JPanel monthView;
+	public Agenda agenda;
 	
 	protected void setupUI() {
 		
-		
+		agenda = new Agenda();//création agenda
 		contentPane = new JPanel();
 		layerLayout = new CardLayout();		
 		contentPane.setLayout(layerLayout);
@@ -100,9 +104,7 @@ public class SchedulerFrame extends JFrame {
 		help.add(display);
 		about =new JMenuItem("About");
 		help.add(about);
-		//ajout de spinner de 2010 à 2020
-		JSpinner spinner;
-		SpinnerModel model=new SpinnerNumberModel(2015,2010,2020,1);
+
 		//ajout de mois
 		JComboBox<String> comboboxmonth =new JComboBox<String>();
 		comboboxmonth.addItem(ApplicationSession.instance().getString("january"));
@@ -176,6 +178,9 @@ public class SchedulerFrame extends JFrame {
 			    
 			}
 	};	
+	//ajout de spinner de 2010 à 2020
+	JSpinner spinner;
+	SpinnerModel model=new SpinnerNumberModel(2015,2010,2020,1);
 	spinner =new JSpinner(model);	
 	spinner.addChangeListener(new ChangeListener(){
 		@Override
@@ -183,11 +188,29 @@ public class SchedulerFrame extends JFrame {
 			// TODO Auto-generated method stub
 			JSpinner spinner= (JSpinner) e.getSource();
 			layerLayout.show(contentPane,ActiveView.MONTH_VIEW.name());
-			System.out.println(spinner.getValue());		
-			
+			System.out.println(spinner.getValue());					
 		}
-
-
+	});
+	//widget pour ajout supp et modif d'examevent
+	JButton ajoutExamEvent=new JButton("Ajout Examen");
+	JButton suppExamEvent=new JButton("Supprimer Examen");
+	JButton modifExamEvent=new JButton("Modifier Examen");//pas d'action listener car on ne sait pas comment il est possbile de modifier un exam event  car on a deja add et supp
+	//actionListener pour les boutons
+	ajoutExamEvent.addActionListener(new ActionListener(){
+		   public void actionPerformed(ActionEvent e) {
+			    JButton b = (JButton) e.getSource();
+			    Date date =new Date(Integer.parseInt(spinner.getValue().toString()),comboboxmonth.getSelectedIndex(),comboboxday.getSelectedIndex());
+			    ExamEvent examen =new ExamEvent(date);
+			    agenda.addCheckedEvent(examen);			    
+			}
+	});
+	suppExamEvent.addActionListener(new ActionListener(){
+		   public void actionPerformed(ActionEvent e) {
+			    JButton b = (JButton) e.getSource();
+			    int i=0;
+			    Date date =new Date(Integer.parseInt(spinner.getValue().toString()),comboboxmonth.getSelectedIndex(),comboboxday.getSelectedIndex());
+			    agenda.suppCheckedEvent(date);	//permet de supprimer un ExamEvent d'agenda		    			    
+			}
 	});
 
 	load.addActionListener(erreur);
@@ -203,6 +226,9 @@ public class SchedulerFrame extends JFrame {
 		agendaViewPanel.add(spinner);
 		agendaViewPanel.add(comboboxmonth);
 		agendaViewPanel.add(comboboxday);
+		agendaViewPanel.add(ajoutExamEvent);
+		agendaViewPanel.add(suppExamEvent);
+		agendaViewPanel.add(modifExamEvent);	
 		
 		this.setJMenuBar(menuBar);
 		this.pack();
