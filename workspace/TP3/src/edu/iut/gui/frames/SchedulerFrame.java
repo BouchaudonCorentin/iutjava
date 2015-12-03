@@ -19,6 +19,8 @@ import javax.swing.JSpinner;
 import javax.swing.JSplitPane;
 import javax.swing.SpinnerModel;
 import javax.swing.SpinnerNumberModel;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 
 import edu.iut.app.ApplicationSession;
 import edu.iut.gui.widget.agenda.AgendaPanelFactory;
@@ -162,34 +164,42 @@ public class SchedulerFrame extends JFrame {
 	week.addActionListener(new ActionListener(){
 	       //@Override
 	   public void actionPerformed(ActionEvent e) {
-	    JMenuItem b = (JMenuItem) e.getSource();
-	   layerLayout.show(contentPane,ActiveView.WEEK_VIEW.name() );
+		   	    JMenuItem b = (JMenuItem) e.getSource();		   	 
+	   layerLayout.show(contentPane,ActiveView.WEEK_VIEW.name() );	
 	    
 	}
 	});
-	ActionListener bidon = new ActionListener(){
+	ActionListener erreur = new ActionListener(){
 		   public void actionPerformed(ActionEvent e) {	
 			   JFrame frame = new JFrame();
 			   JOptionPane.showMessageDialog(frame, "Pas Implémenté", "Erreur", JOptionPane.WARNING_MESSAGE);
 			    
 			}
-	};
-	
+	};	
+	spinner =new JSpinner(model);	
+	spinner.addChangeListener(new ChangeListener(){
+		@Override
+		public void stateChanged(ChangeEvent e) {
+			// TODO Auto-generated method stub
+			JSpinner spinner= (JSpinner) e.getSource();
+			layerLayout.show(contentPane,ActiveView.MONTH_VIEW.name());
+			System.out.println(spinner.getValue());		
+			
+		}
 
-	load.addActionListener(bidon);
-	save.addActionListener(bidon);
-	quit.addActionListener(bidon);
-	display.addActionListener(bidon);
-	about.addActionListener(bidon);
+
+	});
+
+	load.addActionListener(erreur);
+	save.addActionListener(erreur);
+	quit.addActionListener(erreur);
+	display.addActionListener(erreur);
+	about.addActionListener(erreur);
 	Calendar c =Calendar.getInstance();
 	Date date=c.getTime();
-	
-	
-	
-	comboboxmonth.setSelectedIndex(date.getMonth());
-	comboboxday.setSelectedIndex(Calendar.DAY_OF_WEEK-1);
-		
-		spinner =new JSpinner(model);		
+
+		comboboxmonth.setSelectedIndex(date.getMonth());
+		comboboxday.setSelectedIndex(date.getDay()-1);
 		agendaViewPanel.add(spinner);
 		agendaViewPanel.add(comboboxmonth);
 		agendaViewPanel.add(comboboxday);

@@ -29,9 +29,21 @@ public class ControlAgendaViewPanel extends JPanel {
 
 		this.agendaViewLayout = layerLayout;
 		this.contentPane = contentPane;
-		/** EX3: REMPLACEMENT DU BOUTON NEXT */
+				
 	}
-	
+
+	public void setSelectedYear(int selectedYear) {
+		this.selectedYear = selectedYear;
+	}
+
+	public void setSelectedMonth(int selectedMonth) {
+		this.selectedMonth = selectedMonth;
+	}
+
+	public void setSelectedDay(int selectedDay) {
+		this.selectedDay = selectedDay;
+	}
+
 	public int getYear() {
 		return selectedYear;
 	}
