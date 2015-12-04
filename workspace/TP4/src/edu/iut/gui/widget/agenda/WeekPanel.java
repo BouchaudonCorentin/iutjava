@@ -42,7 +42,6 @@ public class WeekPanel extends EventPanel {
 		this.setLayout(daysOfWeekLayout);
 		for (int di = 0;di<7;di++)	{
 			this.add(new DayPanel(ActiveView.WEEK_VIEW,WeekDayNames.values()[di+1]));
-			
 		}
 	}
 }

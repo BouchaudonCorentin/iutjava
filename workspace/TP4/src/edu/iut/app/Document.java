@@ -6,7 +6,7 @@ public class Document {
 		documentURI="";
 	}
 	public Document(String documentURI) {
-		this.documentURI=documentURI;
+		this.documentURI = documentURI;
 	}
 	
 	public void setDocumentURI(String number) {

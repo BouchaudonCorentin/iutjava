@@ -29,21 +29,32 @@ public class ControlAgendaViewPanel extends JPanel {
 
 		this.agendaViewLayout = layerLayout;
 		this.contentPane = contentPane;
-				
-	}
+		JPanel commandPanel = new JPanel();
+		JPanel bottom = new JPanel();
+		commandPanel.setLayout(new BoxLayout(commandPanel, BoxLayout.PAGE_AXIS));
+		Calendar calendar = Calendar.getInstance();
+        SpinnerNumberModel dateModel = new SpinnerNumberModel(calendar.get(Calendar.YEAR),
+        												calendar.get(Calendar.YEAR)-5,
+        												calendar.get(Calendar.YEAR)+5,
+        												1);
+        JSpinner  yearsSpinner       = new JSpinner(dateModel);
+        yearsSpinner.setEditor(new JSpinner.NumberEditor(yearsSpinner, "#"));
+		JComboBox monthComboBox      = new JComboBox(ApplicationSession.instance().getMonths());
+		JComboBox daysOfWeekComboBox = new JComboBox(ApplicationSession.instance().getDays());
+		/*nextView.addActionListener(new ActionListener() {
 
-	public void setSelectedYear(int selectedYear) {
-		this.selectedYear = selectedYear;
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				agendaViewLayout.next(contentPane);				
+			}			
+		});*/
+		commandPanel.add(yearsSpinner);
+		commandPanel.add(monthComboBox);
+		commandPanel.add(daysOfWeekComboBox);
+		this.add(commandPanel, BorderLayout.CENTER);
+        this.add(bottom, BorderLayout.PAGE_END);
 	}
-
-	public void setSelectedMonth(int selectedMonth) {
-		this.selectedMonth = selectedMonth;
-	}
-
-	public void setSelectedDay(int selectedDay) {
-		this.selectedDay = selectedDay;
-	}
-
+	
 	public int getYear() {
 		return selectedYear;
 	}

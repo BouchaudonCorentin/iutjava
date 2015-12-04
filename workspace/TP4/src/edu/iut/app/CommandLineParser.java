@@ -6,7 +6,7 @@ import java.io.File;
 
 public class CommandLineParser {
 	
-	protected HashMap<String, CommandLineOption<?>> options;
+	protected HashMap<String, CommandLineOption<?> > options;
 	protected ArrayList<String> parseErrors;
 		
 	public CommandLineParser() {
@@ -34,7 +34,6 @@ public class CommandLineParser {
 							parseErrors.add("Option should have a key and a value.");
 						}
 						break;
-					/* EX1 : reproduire le comportement de 'case FILE', pour STRING,INTEGER, ... */
 					case STRING:
 						CommandLineOption<String> stringOption = (CommandLineOption<String>)options.get(keyValue[0]);
 						if (keyValue.length == 2) {
@@ -45,13 +44,13 @@ public class CommandLineParser {
 						}
 						break;
 					case INTEGER:
-						CommandLineOption<Integer> intOption = (CommandLineOption<Integer>)options.get(keyValue[0]);
+						CommandLineOption<Integer> integerOption = (CommandLineOption<Integer>)options.get(keyValue[0]);
 						if (keyValue.length == 2) {
-							intOption.setValue(new Integer(keyValue[1]));
+							integerOption.setValue(new Integer(keyValue[1]));
 						}
 						else {
 							parseErrors.add("Option should have a key and a value.");
-						}
+						}						
 						break;
 					case DOUBLE:
 						CommandLineOption<Double> doubleOption = (CommandLineOption<Double>)options.get(keyValue[0]);
@@ -62,13 +61,17 @@ public class CommandLineParser {
 							parseErrors.add("Option should have a key and a value.");
 						}
 						break;
-					case BOOLEAN:
 					case NOVALUE:
-						CommandLineOption<Boolean> booleanOption = (CommandLineOption<Boolean>)options.get(keyValue[0]);
-						break;					
+						CommandLineOption<Boolean> boolOption = (CommandLineOption<Boolean>)options.get(keyValue[0]);
+						if (keyValue.length == 2) {
+							boolOption.setValue(new Boolean(keyValue[1]));
+						}
+						else {
+							boolOption.setValue(new Boolean(true));
+						}
+						break;
 					default:
-						parseErrors.add("Unrecognize option type.");
-
+						parseErrors.add("Unrecognize option type.");						
 				}
 			}
 		}
